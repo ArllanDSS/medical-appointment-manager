@@ -6,9 +6,9 @@ public class Medico extends Pessoa {
     private Especialidade especialidade;
     private Boolean ativo;
 
-    public Medico(int id, String nome, String email, String crm, Especialidade especialidade) {
+    public Medico(String nome, String email, String crm, Especialidade especialidade) {
 
-        super(id, nome, email);
+        super(nome, email);
 
         this.crm = crm;
         this.especialidade = especialidade;
@@ -23,6 +23,10 @@ public class Medico extends Pessoa {
         this.crm = crm;
         this.especialidade = especialidade;
         this.ativo = ativo;
+
+    }
+
+    public Medico() {
 
     }
 

@@ -145,6 +145,47 @@ public class ConsultaDAO {
         }
     }
 
+    public boolean existeConsultaNoHorario(int idMedico, LocalDateTime dataHora) {
+        // Contamos quantas consultas ativas existem para aquele médico naquele horário
+        String sql = "SELECT COUNT(*) FROM consultas WHERE id_medico = ? AND data_hora = ? AND status != 'CANCELADA'";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idMedico);
+            stmt.setTimestamp(2, java.sql.Timestamp.valueOf(dataHora));
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    int total = rs.getInt(1);
+                    return total > 0; // Se for maior que 0, o horário está ocupado
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao verificar disponibilidade do médico", e);
+        }
+        return false;
+    }
+
+    public boolean existeConsultaPacienteNoDia(int idPaciente, LocalDateTime dataHora) {
+        // CAST(data_hora AS DATE) extrai apenas a data, ignorando as horas
+        String sql = "SELECT COUNT(*) FROM consultas WHERE id_paciente = ? " +
+                "AND CAST(data_hora AS DATE) = CAST(? AS DATE) AND status != 'CANCELADA'";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idPaciente);
+            stmt.setTimestamp(2, java.sql.Timestamp.valueOf(dataHora));
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao verificar consultas do paciente no dia", e);
+        }
+        return false;
+    }
 
 
 }

@@ -19,6 +19,10 @@ public class Paciente extends Pessoa {
         this.ativo = true;
     }
 
+    public Paciente() {
+        super();
+    }
+
 
     public String getCpf() {
         return cpf;

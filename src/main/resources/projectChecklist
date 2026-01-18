@@ -41,10 +41,10 @@
 
 ## 🧠 Fase 5: Regras de Negócio (Service)
 
-* [ ] **Validação de Data:** Impedir agendamentos em datas passadas.
-* [ ] **Validação de Conflito Médico:** Criar lógica para impedir que um médico tenha duas consultas no mesmo horário.
-* [ ] **Validação de Conflito Paciente:** Impedir que o paciente marque duas consultas simultâneas.
-* [ ] **Integração:** O `Service` deve chamar os DAOs apenas se as regras acima forem satisfeitas.
+* [x] **Validação de Data:** Impedir agendamentos em datas passadas.
+* [x] **Validação de Conflito Médico:** Criar lógica para impedir que um médico tenha duas consultas no mesmo horário.
+* [x] **Validação de Conflito Paciente:** Impedir que o paciente marque duas consultas simultâneas.
+* [x] **Integração:** O `Service` deve chamar os DAOs apenas se as regras acima forem satisfeitas.
 
 ---
 

@@ -17,6 +17,10 @@ public abstract class Pessoa {
         this.email = email;
     }
 
+    public Pessoa() {
+
+    }
+
     public int getId() {
         return id;
     }
