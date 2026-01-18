@@ -40,3 +40,4 @@ build/
 
 ### Configurações Sensíveis ###
 src/main/resources/config.properties
+src/main/resources/projectChecklist

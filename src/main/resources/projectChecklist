@@ -1,0 +1,72 @@
+## 🏗️ Fase 1: Fundação e Ambiente
+
+* [x] **Criação do Banco de Dados:** Criar o banco `med_db` e rodar o script SQL das tabelas (`medicos`, `pacientes`, `consultas`).
+* [x] **Projeto Maven:** Criar um novo projeto Java com Maven no IntelliJ.
+* [x] **Configuração do `pom.xml`:** Adicionar a dependência do driver JDBC do PostgreSQL.
+* [x] **Estrutura de Pacotes:** Criar a árvore de pastas:
+* `com.arllan.medsync.model`
+* `com.arllan.medsync.repository`
+* `com.arllan.medsync.service`
+* `com.arllan.medsync.view`
+
+
+
+---
+
+## 🔐 Fase 2: Segurança e Conexão (Plumbing)
+
+* [x] **Arquivo de Configuração:** Criar o `config.properties` com as credenciais do banco.
+* [x] **Segurança Git:** Criar o `.gitignore` e garantir que o `config.properties` não seja rastreado.
+* [x] **ConnectionFactory:** Implementar a classe de conexão usando `Properties` e `DriverManager`.
+* [x] **Teste de Conexão:** Criar uma classe `Main` temporária apenas para testar se o Java consegue "dar o aperto de mão" no PostgreSQL.
+
+---
+
+## 🧬 Fase 3: Modelo de Domínio (POO)
+
+* [x] **Classe Abstrata `Pessoa`:** Criar a classe pai com campos comuns (id, nome, email).
+* [x] **Classes Filhas:** Implementar `Medico` (com CRM) e `Paciente` (com CPF) herdando de `Pessoa`.
+* [x] **Enums:** Criar os Enums `Especialidade` e `StatusConsulta`.
+* [x] **Classe `Consulta`:** Implementar a composição (objetos `Medico` e `Paciente` dentro da consulta) e o campo `LocalDateTime`.
+
+---
+
+## 💾 Fase 4: Persistência (DAO)
+
+* [x] **`MedicoDAO`:** Implementar métodos `salvar` e `listarTodos`.
+* [ ] **`PacienteDAO`:** Implementar métodos `salvar`, `buscarPorCpf` e `listarTodos`.
+* [ ] **`ConsultaDAO`:** Implementar o método `agendar` (Insert) e `buscarConsultasPorMedico` (Select com filtro).
+
+---
+
+## 🧠 Fase 5: Regras de Negócio (Service)
+
+* [ ] **Validação de Data:** Impedir agendamentos em datas passadas.
+* [ ] **Validação de Conflito Médico:** Criar lógica para impedir que um médico tenha duas consultas no mesmo horário.
+* [ ] **Validação de Conflito Paciente:** Impedir que o paciente marque duas consultas simultâneas.
+* [ ] **Integração:** O `Service` deve chamar os DAOs apenas se as regras acima forem satisfeitas.
+
+---
+
+## 🖥️ Fase 6: Interface e Fluxo (View)
+
+* [ ] **Menu Principal:** Criar o `switch-case` com as opções de cadastro e agendamento.
+* [ ] **Captura de Dados:** Usar o `Scanner` com tratamento de buffer (`nextLine()`).
+* [ ] **Formatador de Data:** Usar `DateTimeFormatter` para o usuário digitar a data em formato brasileiro (dd/MM/yyyy HH:mm).
+* [ ] **Exibição de Dados:** Formatar a saída no console para que as tabelas fiquem legíveis.
+
+---
+
+## 🏁 Fase 7: Finalização e Portfólio
+
+* [ ] **README.md:** Escrever a documentação detalhada do projeto.
+* [ ] **Refatoração:** Revisar se há código repetido ou variáveis com nomes confusos.
+* [ ] **Commit Final:** Realizar o push para o GitHub com uma mensagem profissional.
+
+---
+
+### Dica de Coach para a Fase 3
+
+Ao criar as classes `Medico` e `Paciente`, lembre-se de usar o **`super(nome, email)`** no construtor para passar os dados para a classe `Pessoa`. Isso é fundamental para que a herança funcione corretamente e o seu código fique limpo.
+
+**Você quer começar agora pela Fase 1 (Banco e Maven) ou prefere que eu te ajude a montar o `pom.xml` perfeito para esse projeto antes de você mergulhar no código?**
