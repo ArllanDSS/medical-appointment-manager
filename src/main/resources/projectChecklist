@@ -34,7 +34,7 @@
 ## 💾 Fase 4: Persistência (DAO)
 
 * [x] **`MedicoDAO`:** Implementar métodos `salvar` e `listarTodos`.
-* [ ] **`PacienteDAO`:** Implementar métodos `salvar`, `buscarPorCpf` e `listarTodos`.
+* [x] **`PacienteDAO`:** Implementar métodos `salvar`, `buscarPorCpf` e `listarTodos`.
 * [ ] **`ConsultaDAO`:** Implementar o método `agendar` (Insert) e `buscarConsultasPorMedico` (Select com filtro).
 
 ---

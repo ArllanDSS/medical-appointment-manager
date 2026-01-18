@@ -5,20 +5,42 @@ import java.time.LocalDateTime;
 public class Consulta {
 
 
+    private Integer id;
     private Paciente paciente;
     private Medico medico;
+    private LocalDateTime data;
+    private String motivo;
+    private StatusConsulta status;
 
-    private StatusConsulta statusConsulta;
 
-    private LocalDateTime dataConsulta;
 
-    public Consulta(Paciente paciente, Medico medico, LocalDateTime dataConsulta) {
+    public Consulta(Integer id, Paciente paciente, Medico medico, LocalDateTime data, String motivo, StatusConsulta status) {
+
+        this.id = id;
         this.paciente = paciente;
         this.medico = medico;
-        this.dataConsulta = dataConsulta;
+        this.data = data;
+        this.motivo = motivo;
+        this.status = status;
 
-        this.statusConsulta = StatusConsulta.AGENDADA;
+    }
 
+    public Consulta(Paciente paciente, Medico medico, LocalDateTime dataConsulta, String motivoConsulta) {
+
+        this.paciente = paciente;
+        this.medico = medico;
+        this.data = dataConsulta;
+        this.motivo = motivoConsulta;
+        this.status = StatusConsulta.AGENDADA;
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Paciente getPaciente() {
@@ -37,24 +59,37 @@ public class Consulta {
         this.medico = medico;
     }
 
-    public StatusConsulta getStatusConsulta() {
-        return statusConsulta;
+    public StatusConsulta getStatus() {
+        return status;
     }
 
-    public void setStatusConsulta(StatusConsulta statusConsulta) {
-        this.statusConsulta = statusConsulta;
+    public void setStatus(StatusConsulta statusConsulta) {
+        this.status = statusConsulta;
     }
 
-    public LocalDateTime getDataConsulta() {
-        return dataConsulta;
+    public LocalDateTime getData() {
+        return data;
     }
 
-    public void setDataConsulta(LocalDateTime dataConsulta) {
-        this.dataConsulta = dataConsulta;
+    public void setData(LocalDateTime dataConsulta) {
+        this.data = dataConsulta;
+    }
+
+    public String getMotivo() {
+        return motivo;
+    }
+
+    public void setMotivo(String motivoConsulta) {
+        this.motivo = motivoConsulta;
     }
 
     @Override
     public String toString() {
-        return super.toString();
+        return String.format("Consulta [ID: %s | Data: %s | Paciente: %s | Médico: %s | Status: %s]",
+                (id == null ? "N/A" : id),
+                data,
+                paciente.getNome(),
+                medico.getNome(),
+                status);
     }
 }

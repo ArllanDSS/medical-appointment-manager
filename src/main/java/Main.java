@@ -1,13 +1,6 @@
-import br.com.arllan.medsync.model.Especialidade;
-import br.com.arllan.medsync.model.Medico;
 import br.com.arllan.medsync.model.Paciente;
-import br.com.arllan.medsync.repository.ConnectionFactory;
-import br.com.arllan.medsync.repository.ConsultaDAO;
-import br.com.arllan.medsync.repository.MedicoDAO;
 import br.com.arllan.medsync.repository.PacienteDAO;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 public class Main {
