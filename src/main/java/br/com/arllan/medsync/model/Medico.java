@@ -4,7 +4,7 @@ public class Medico extends Pessoa {
 
     private String crm;
     private Especialidade especialidade;
-    private boolean ativo;
+    private Boolean ativo;
 
     public Medico(int id, String nome, String email, String crm, Especialidade especialidade) {
 
@@ -16,7 +16,7 @@ public class Medico extends Pessoa {
 
     }
 
-    public Medico(int id, String nome, String email, String crm, Especialidade especialidade, boolean ativo) {
+    public Medico(int id, String nome, String email, String crm, Especialidade especialidade, Boolean ativo) {
 
         super(id, nome, email);
 

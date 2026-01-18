@@ -48,7 +48,7 @@ public class MedicoDAO {
 
     public boolean atualizar(Medico medico) {
 
-        String sql = "UPDATE medicos SET nome = ?, email = ?, especialidade = ?, ativo = ? WHERE id = ?";
+        String sql = "UPDATE medicos SET nome = ?, email = ?, especialidade = ? WHERE id = ?";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -56,13 +56,10 @@ public class MedicoDAO {
             stmt.setString(1, medico.getNome());
             stmt.setString(2, medico.getEmail());
             stmt.setString(3, medico.getEspecialidade().name());
-            stmt.setBoolean(4, medico.isAtivo());
-            stmt.setInt(5, medico.getId());
+            stmt.setInt(4, medico.getId());
 
-            // 3. Execução do comando
             int linhasAfetadas = stmt.executeUpdate();
 
-            // Retorna true se encontrou o médico e atualizou, false caso contrário
             return linhasAfetadas > 0;
 
         } catch (SQLException e) {

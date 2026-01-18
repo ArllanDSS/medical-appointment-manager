@@ -12,6 +12,11 @@ public abstract class Pessoa {
         this.email = email;
     }
 
+    public Pessoa(String nome, String email) {
+        this.nome = nome;
+        this.email = email;
+    }
+
     public int getId() {
         return id;
     }

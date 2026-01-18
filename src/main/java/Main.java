@@ -1,41 +1,51 @@
 import br.com.arllan.medsync.model.Especialidade;
 import br.com.arllan.medsync.model.Medico;
+import br.com.arllan.medsync.model.Paciente;
 import br.com.arllan.medsync.repository.ConnectionFactory;
 import br.com.arllan.medsync.repository.ConsultaDAO;
 import br.com.arllan.medsync.repository.MedicoDAO;
+import br.com.arllan.medsync.repository.PacienteDAO;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("--- TESTE DE CONEXÃO MEDSYNC ---");
+        PacienteDAO dao = new PacienteDAO();
 
-        // Usamos o try-with-resources para garantir que a conexão feche após o teste
-        try (Connection conn = ConnectionFactory.getConnection()) {
+        System.out.println("--- INICIANDO TESTE CRUD PACIENTE ---");
 
-            if (conn != null && !conn.isClosed()) {
-                System.out.println("✅ SUCESSO: Conexão com o banco 'med_db' estabelecida!");
+        // 1. CRIAR E SALVAR (ID será gerado aqui se usar a melhoria acima)
+        Paciente novo = new Paciente("Carlos Alberto", "98765432100", "carlos@email.com");
+        dao.salvar(novo);
+        System.out.println("1. Paciente salvo. ID gerado: " + novo.getId());
 
-                // Opcional: Mostrar qual banco estamos usando
-                System.out.println("Catálogo atual: " + conn.getCatalog());
+        // 2. BUSCAR E VALIDAR
+        Paciente pDoBanco = dao.buscarPorCpf("98765432100");
+        if (pDoBanco != null) {
+            System.out.println("2. Encontrado: " + pDoBanco.getNome());
+
+            // 3. ATUALIZAR
+            pDoBanco.setNome("Carlos Alberto Alterado");
+            if (dao.atualizar(pDoBanco)) {
+                System.out.println("3. Nome atualizado no banco.");
             }
 
+            // 4. LISTAR E EXCLUIR
+            List<Paciente> ativos = dao.listarAtivos();
+            System.out.println("4. Total de ativos antes da exclusão: " + ativos.size());
 
-            MedicoDAO medicoDAO = new MedicoDAO();
+            if (dao.excluir(pDoBanco.getId())) {
+                System.out.println("5. Paciente desativado com sucesso.");
+            }
 
-            Medico m = medicoDAO.buscarPorCrm("9999");
-            medicoDAO.excluir(m.getId());
+            // 6. VERIFICAR SE SUMIU DOS ATIVOS
+            List<Paciente> ativosDepois = dao.listarAtivos();
+            System.out.println("6. Total de ativos após exclusão: " + ativosDepois.size());
 
-            medicoDAO.listarTodosMedicos().forEach(System.out::println);
-
-        } catch (SQLException e) {
-            System.err.println("❌ ERRO: Não foi possível conectar ao banco de dados.");
-            System.err.println("Motivo: " + e.getMessage());
-            e.printStackTrace();
-        } catch (Exception e) {
-            System.err.println("❌ ERRO INESPERADO: Verifique se o arquivo .properties está correto.");
-            e.printStackTrace();
+        } else {
+            System.out.println("❌ ERRO: Paciente não foi encontrado após o salvamento.");
         }
     }
 }
